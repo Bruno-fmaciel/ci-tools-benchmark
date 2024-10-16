@@ -25,6 +25,21 @@ public class AlunoService {
         return alunoRepository.save(aluno);
     }
 
+    public Aluno atualizarAluno(Long id, Aluno alunoAtualizado) {
+        Optional<Aluno> alunoOptional = alunoRepository.findById(id);
+
+        if (alunoOptional.isPresent()) {
+            Aluno alunoExistente = alunoOptional.get();
+            alunoExistente.setNome(alunoAtualizado.getNome());
+            alunoExistente.setIdade(alunoAtualizado.getIdade());
+            alunoExistente.setNota1(alunoAtualizado.getNota1());
+            alunoExistente.setNota2(alunoAtualizado.getNota2());
+            return alunoRepository.save(alunoExistente);
+        } else {
+            throw new RuntimeException("Aluno não encontrado");
+        }
+    }
+
     public void excluir(Long id) {
         alunoRepository.deleteById(id);
     }

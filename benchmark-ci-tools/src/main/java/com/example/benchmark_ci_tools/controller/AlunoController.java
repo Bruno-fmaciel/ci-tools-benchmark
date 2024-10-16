@@ -36,19 +36,12 @@ public class AlunoController {
         }
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Aluno> atualizarAluno(@PathVariable Long id, @RequestBody Aluno alunoAtualizado) {
-        Optional<Aluno> aluno = alunoService.buscarPorId(id);
-
-        if (aluno.isPresent()) {
-            Aluno alunoExistente = aluno.get();
-            alunoExistente.setNome(alunoAtualizado.getNome());
-            alunoExistente.setIdade(alunoAtualizado.getIdade());
-            alunoExistente.setNota1(alunoAtualizado.getNota1());
-            alunoExistente.setNota2(alunoAtualizado.getNota2());
-            alunoService.salvar(alunoExistente);
-            return ResponseEntity.ok(alunoExistente);
-        } else {
+        try {
+            Aluno alunoAtualizadoResultante = alunoService.atualizarAluno(id, alunoAtualizado);
+            return ResponseEntity.ok(alunoAtualizadoResultante);
+        } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
         }
     }
