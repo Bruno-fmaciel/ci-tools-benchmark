@@ -27,8 +27,24 @@ jobs:
       - image: cimg/base:stable
     steps:
       - run:
-          name: deploy
+          name: Start Timer
           command:
+          echo "Deploy started at: $(date)"
+            - run:
+                name: Deploy Application
+                command: # Insira seu comando de deploy aqui (ex: ./deploy.sh)
+            - run:
+                name: End Timer
+                command:
+                  echo "Deploy finished at: $(date)"
+            - run:
+                name: Calculate Duration
+                command: |
+                  START=$(date +%s)
+                  # Insira seu comando de deploy aqui
+                  END=$(date +%s)
+                  DIFF=$(( END - START ))
+                  echo "Deploy duration: ${DIFF} seconds"
 workflows:
   build-and-test:
     jobs:
