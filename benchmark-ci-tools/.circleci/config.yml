@@ -1,0 +1,15 @@
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:11.0-jdk
+    steps:
+      - checkout
+      - run: cd benchmark-ci-tools
+      - run: mvn package
+      - run: mvn test
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
