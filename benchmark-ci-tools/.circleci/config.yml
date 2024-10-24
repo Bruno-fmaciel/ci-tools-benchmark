@@ -20,6 +20,9 @@ jobs:
             if [ -f target/benchmark-ci-tools-0.0.1-SNAPSHOT.jar ]; then
               mv target/benchmark-ci-tools-0.0.1-SNAPSHOT.jar target/benchmark-ci-tools-0.0.1-SNAPSHOT-old.jar
             fi
+            if [ -f target/benchmark-ci-tools-0.0.1-SNAPSHOT.jar.original ]; then
+              mv target/benchmark-ci-tools-0.0.1-SNAPSHOT.jar.original target/benchmark-ci-tools-0.0.1-SNAPSHOT-old.jar.original
+            fi
       - run:
           name: Build the Project
           command: mvn package
