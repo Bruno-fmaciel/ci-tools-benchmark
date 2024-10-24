@@ -15,23 +15,20 @@ jobs:
       - restore_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
       - run:
-          command: mvn verify
+          name: Build the Project
+          command: mvn package
       - store_test_results:
           path: target/surefire-reports
 
-      - run:
-          name: Creating Dummy Artifacts
-          command: |
-            echo "my artifact file" > ~/project/benchmark-ci-tools/art-1;
-            mkdir ~/project/benchmark-ci-tools/artifacts;
-            echo "my artifact files in a dir" > ~/project/benchmark-ci-tools/artifacts/art-2;
 
       - store_artifacts:
-          path: ~/project/benchmark-ci-tools/art-1
-          destination: artifact-file
+          path: target/benchmark-ci-tools-0.0.1-SNAPSHOT.jar
+          destination: benchmark-ci-tools.jar
 
-      - store_artifacts:
-          path: ~/project/benchmark-ci-tools/artifacts
+      - save_cache:
+          key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
+          paths:
+            - ~/.m2/repository
 
 workflows:
   build-and-test:
