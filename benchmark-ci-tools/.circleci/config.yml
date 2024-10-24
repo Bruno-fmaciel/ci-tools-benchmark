@@ -15,16 +15,16 @@ jobs:
       - restore_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
       - run:
+          name: Rename Existing JAR
+          command: |
+            if [ -f target/benchmark-ci-tools-0.0.1-SNAPSHOT.jar ]; then
+              mv target/benchmark-ci-tools-0.0.1-SNAPSHOT.jar target/benchmark-ci-tools-0.0.1-SNAPSHOT-old.jar
+            fi
+      - run:
           name: Build the Project
           command: mvn package
       - store_test_results:
           path: target/surefire-reports
-
-
-      - store_artifacts:
-          path: target/benchmark-ci-tools-0.0.1-SNAPSHOT.jar
-          destination: benchmark-ci-tools.jar
-
       - save_cache:
           key: cache-{{ checksum "/tmp/CIRCLECI_CACHE_KEY" }}
           paths:
