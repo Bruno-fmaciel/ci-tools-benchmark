@@ -1,6 +1,10 @@
 language: java
 jdk:
   - openjdk21
+addons:
+  apt:
+    packages:
+      - maven
 script:
   - cd benchmark-ci-tools
   - mvn clean install
