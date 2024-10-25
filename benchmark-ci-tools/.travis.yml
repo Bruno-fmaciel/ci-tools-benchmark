@@ -1,5 +1,5 @@
 language: java
-rvm:
+jdk:
   -openjdk21
 script:
   - cd benchmark-ci-tools
