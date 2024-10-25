@@ -1,7 +1,5 @@
 language: java
 rvm:
   -openjdk21
-
 script:
-  - cd benchmark-ci-tools
   - mvn clean install
