@@ -1,7 +1,0 @@
-language: java
-jdk:
-  -openjdk21
-  -oraclejdk21
-script:
-  - cd benchmark-ci-tools
-  - mvn clean install
